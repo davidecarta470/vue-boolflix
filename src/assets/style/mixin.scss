@@ -1,0 +1,9 @@
+@import './vars.scss';
+@mixin display($justify,$align) {
+  display:flex;
+  @if $justify!=0 && $align!=0{
+  justify-content: $justify;
+  align-items: $align;
+  }
+  
+}
