@@ -8,6 +8,7 @@
      v-model="type"
      name="" id="">
       <option disabled value="">Please select one</option>
+      <option value="all">all</option>
       <option value="movie">movies</option>
       <option value="tv">series</option>
     </select>

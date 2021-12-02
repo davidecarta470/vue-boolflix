@@ -1,4 +1,6 @@
 <template>
+  <div class="container">
+    <h1>Tv series</h1>
     <div class="wrapper">
       <div v-for="(serie,index) in series" :key="index" class="item">
         <img :src="serie.poster_path" alt="">
@@ -8,6 +10,7 @@
         <div class="vote">{{serie.vote_average}}</div>
       </div>
     </div>
+  </div>
      
 </template>
 
@@ -24,9 +27,12 @@ export default {
 
 @import '../assets/style/vars.scss';
 @import '../assets/style/mixin.scss';
-main {
-  min-height:calc(100vh - 80px);
-  background-color:$primaryColor;
+.container{
+  h1{
+    color: white;
+    text-align: center;
+  }
+
   .wrapper{
     @include display();
     flex-wrap:wrap;

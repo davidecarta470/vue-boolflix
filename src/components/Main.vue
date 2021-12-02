@@ -1,9 +1,13 @@
 <template>
   <main>
     <Movie
-    :films="films"/>
+    :films="films"
+    v-if="isFilm"
+    />
     <Serie
-    :series="series"/>
+    :series="series"
+    v-if="isSerie"
+    />
   </main>
 </template>
 
@@ -24,6 +28,8 @@ export default {
   },
   data(){
     return{
+      isFilm:false,
+      isSerie:false,
       films:[],
       series: [],
       apiUrl:'https://api.themoviedb.org/3/search/',
@@ -35,30 +41,33 @@ export default {
     }
   },
   methods:{
+ 
+
+
     getApi(query,type){
-      if(type){
-        axios.get(this.apiUrl+type,{
-          params:{
-            query:query,
-            api_key:'f06b44ac869efe8c64e78f6eb1684059'}
-        })
-        .then((respond)=>{
-          if(type==='movie') {
-            this.films = respond.data.results 
-            this.series = []
-          }else {
-            this.series = respond.data.results
-            this.films =[]
-          }
-          
-        })
-        .catch((error)=>{
-          console.log('errore',error,type)
-        })
-      }
-          
-          
+      axios.get(this.apiUrl+type,{
+        params:{
+          query:query,
+          api_key:'f06b44ac869efe8c64e78f6eb1684059'}
+      })
+      .then((respond)=>{
+        if(type==='movie') {
+          this.films = respond.data.results 
+          console.log(this.films)
+        }else {
+          this.series = respond.data.results
+        }
+        
+      })
+      .catch((error)=>{
+        console.log('errore',error,type)
+      })
     },
+   
+    
+     
+          
+          
     // newfunction(){
     //   this.getApi()
     // }
@@ -79,13 +88,33 @@ export default {
   watch:{
     titleType(value){
       const  {searchTitle,type} = value
-      if (searchTitle!==''){
-        this.getApi(searchTitle,type)
+      if (searchTitle!==''&& type){
+        
+        if(type==='all'){
+          this.isFilm=true;
+          this.isSerie=true;
+          const options = ['movie','tv'] ;
+          for (let i=0; i<2; i++){
+            this.getApi(searchTitle,options[i]);
+          }
+        }else{
+          this.films=[]
+          this.series=[]
+          if(type==='movie'){
+            this.isSerie=false
+            this.isFilm=true
+          }else{
+            this.isFilm=false
+            this.isSerie=true
+          }
+          this.getApi(searchTitle,type)
+        }
       }
-      
     }
   }
 }
+        
+      
 </script>
 <style  lang="scss" scoped>
 @import '../assets/style/vars.scss';
