@@ -4,9 +4,16 @@
      <h2>logo</h2>
   </div>
   <div>
+    <select
+     v-model="type"
+     name="" id="">
+      <option disabled value="">Please select one</option>
+      <option value="movie">movies</option>
+      <option value="tv">series</option>
+    </select>
     <input 
     v-model="searchTitle"
-    @keydown.enter="$emit('sendTitle',searchTitle)"
+    @keydown.enter="$emit('sendTitle',searchTitle,type)"
     type="text" 
     placeholder="fai la tua ricerca"
     >
@@ -20,7 +27,8 @@ export default {
   name:'Header',
   data(){
     return{
-      searchTitle:''
+      searchTitle:'',
+      type:''
     }
   },
   
@@ -38,6 +46,10 @@ export default {
    border-bottom : 10px solid lighten($primaryColor, 30%);
    .logo{
      color:white;
+   }
+   select{
+     width:100px;
+     margin-right:20px
    }
  }
 </style>

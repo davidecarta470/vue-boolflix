@@ -1,0 +1,44 @@
+<template>
+    <div class="wrapper">
+      <div v-for="(film,index) in films" :key="index" class="item">
+        <img :src="film.poster_path" alt="">
+        <h2>{{film.title}}</h2>
+        <div class="original-title">{{film.original_title}}</div>
+        <div class="lenguage"> <span>Lingua:</span> {{film.original_language}}</div>
+        <div class="vote">{{film.vote_average}}</div>
+      </div>
+    </div>
+     
+</template>
+
+<script>
+export default {
+  name:'Movie',
+  props:{
+    films:Array
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+
+@import '../assets/style/vars.scss';
+@import '../assets/style/mixin.scss';
+main {
+  min-height:calc(100vh - 80px);
+  background-color:$primaryColor;
+  .wrapper{
+    @include display();
+    flex-wrap:wrap;
+    .item{
+      width: 200px;
+      margin:40px;
+      color:white; 
+      .lenguage,
+      .original-title{
+        padding:10px 0px;
+      }  
+     }
+  }
+}
+</style>

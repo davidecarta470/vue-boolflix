@@ -1,70 +1,99 @@
 <template>
   <main>
-    <div class="wrapper">
-     <div v-for="(film,index) in films" :key="index" class="item">
-       <img :src="film.poster_path" alt="">
-       <h2>{{film.title}}</h2>
-       <div class="original-title">{{film.original_title}}</div>
-       <div class="lenguage"> <span>Lingua:</span> {{film.original_language}}</div>
-       <div class="vote">{{film.vote_average}}</div>
-     </div>
-    </div>
+    <Movie
+    :films="films"/>
+    <Serie
+    :series="series"/>
   </main>
 </template>
 
+  
+
 <script>
 import axios from "axios";
+import Movie from './Movie.vue';
+import Serie from './Serie.vue';
 export default {
   name: 'Main',
+  components:{
+    Movie:Movie,
+    Serie:Serie,
+  },
   props:{
-    getTitle:String
+    titleType:Object
   },
   data(){
     return{
       films:[],
-      url:'https://api.themoviedb.org/3/search/movie?api_key=f06b44ac869efe8c64e78f6eb1684059&query',
-      filmTitle:''
+      series: [],
+      apiUrl:'https://api.themoviedb.org/3/search/',
+      apiParams:{
+        query:'',
+        api_key:'f06b44ac869efe8c64e78f6eb1684059'
+      },
+        
     }
   },
-
   methods:{
-    getApi(){
-      axios.get(`${this.url}=${this.getTitle}}`)
-       .then((respond)=>{
-         this.films = respond.data.results
-         
-       })
-       .catch((error)=>{
-         console.log('errore',error)
-       })
-
-    }
+    getApi(query,type){
+      if(type){
+        axios.get(this.apiUrl+type,{
+          params:{
+            query:query,
+            api_key:'f06b44ac869efe8c64e78f6eb1684059'}
+        })
+        .then((respond)=>{
+          if(type==='movie') {
+            this.films = respond.data.results 
+            this.series = []
+          }else {
+            this.series = respond.data.results
+            this.films =[]
+          }
+          
+        })
+        .catch((error)=>{
+          console.log('errore',error,type)
+        })
+      }
+          
+          
+    },
+    // newfunction(){
+    //   this.getApi()
+    // }
   },
-
-  mounted(){
-    this.getApi()
+  // la computed non è adeguata per chiamare funzioni 
+  // in questo caso si viene a creare un ciclo di getApi continuo.Riesco ad evitarlo
+  // chiamando una ulteriore funzione all'interno della computed (newfunction) ma l'utilizzo 
+  // della watch è preferibile
+  // computed:{
+  //   getTitle(){ 
+  //     if(this.filmsChosed!==''){
+  //       this.newfunction()
+  //     }
+  //   return this.filmsChosed
+  //   }
+        
+  // }
+  watch:{
+    titleType(value){
+      const  {searchTitle,type} = value
+      if (searchTitle!==''){
+        this.getApi(searchTitle,type)
+      }
+      
+    }
   }
 }
 </script>
-
 <style  lang="scss" scoped>
 @import '../assets/style/vars.scss';
 @import '../assets/style/mixin.scss';
-main {
+ main {
   min-height:calc(100vh - 80px);
   background-color:$primaryColor;
-  .wrapper{
-    @include display(space-around,0);
-    flex-wrap:wrap;
-    .item{
-      width: 200px;
-      margin:40px;
-      color:white; 
-      .lenguage,
-      .original-title{
-        padding:10px 0px;
-      }  
-     }
-  }
-}
+
+ }    
+
 </style>
