@@ -6,7 +6,10 @@
         <img :src="film.poster_path" alt="">
         <h2>{{film.title}}</h2>
         <div class="original-title">{{film.original_title}}</div>
-        <div class="lenguage"> <span>Lingua:</span> {{film.original_language}}</div>
+        <div class="lenguage">
+           <span>Lingua:</span> 
+           <span >{{film.original_language}}</span> 
+        </div>
         <div class="vote">{{film.vote_average}}</div>
       </div>
     </div>
@@ -18,6 +21,9 @@ export default {
   name:'Movie',
   props:{
     films:Array
+  },
+  methods:{
+
   }
 }
 </script>

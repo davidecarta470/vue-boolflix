@@ -6,7 +6,10 @@
         <img :src="serie.poster_path" alt="">
         <h2>{{serie.name}}</h2>
         <div class="original-title">{{serie.original_name}}</div>
-        <div class="lenguage"> <span>Lingua:</span> {{serie.original_language}}</div>
+        <div class="lenguage">
+           <span>Lingua:</span>
+           <span>{{serie.original_language}}</span> 
+        </div>
         <div class="vote">{{serie.vote_average}}</div>
       </div>
     </div>
@@ -19,6 +22,9 @@ export default {
   name:'Serie',
   props:{
     series:Array
+  },
+  methods:{
+
   }
 }
 </script>
