@@ -7,9 +7,8 @@
     <select
      v-model="type"
      @click="$emit('sendTitle',searchTitle,type)"
-     name="" id=""
+     name="Please select one" id=""
      >
-      <option disabled value="">Please select one</option>
       <option value="all">all</option>
       <option value="movie">movies</option>
       <option value="tv">series</option>

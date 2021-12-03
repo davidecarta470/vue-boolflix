@@ -1,13 +1,17 @@
 <template>
   <main>
-    <Movie
-    :films="films"
-    v-if="isFilm"
-    />
-    <Serie
-    :series="series"
-    v-if="isSerie"
-    />
+    <h2  v-if="zeroResult">Non sono presenti Titoli</h2>
+    <div v-else>
+      <Movie
+      :films="films"
+      v-if="isFilm"
+      />
+      <Serie
+      :series="series"
+      v-if="isSerie"
+      />
+    </div>
+    
   </main>
 </template>
 
@@ -28,6 +32,7 @@ export default {
   },
   data(){
     return{
+      zeroResult:false,
       isFilm:false,
       isSerie:false,
       films:[],
@@ -54,14 +59,19 @@ export default {
         if(type==='movie') {
           this.films = respond.data.results 
           console.log(this.films)
+
         }else {
           this.series = respond.data.results
+          
         }
+        
         
       })
       .catch((error)=>{
         console.log('errore',error,type)
       })
+
+    
     },
    
     
@@ -109,6 +119,12 @@ export default {
           }
           this.getApi(searchTitle,type)
         }
+        
+      }else if(searchTitle === '' && type){
+        this.films=[];
+        this.series=[];
+        this.isFilm=false;
+        this.isSerie=false;
       }
     }
   }
