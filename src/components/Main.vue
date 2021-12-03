@@ -45,6 +45,7 @@ export default {
         
     }
   },
+
   methods:{
  
 
@@ -120,7 +121,7 @@ export default {
           this.getApi(searchTitle,type)
         }
         
-      }else if(searchTitle === '' && type){
+      }else if((searchTitle === '' && type)||(!type)){
         this.films=[];
         this.series=[];
         this.isFilm=false;

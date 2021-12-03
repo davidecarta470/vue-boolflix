@@ -4,11 +4,13 @@
      <h2>logo</h2>
   </div>
   <div>
+    <span>Please make your choise</span>
     <select
      v-model="type"
      @click="$emit('sendTitle',searchTitle,type)"
      name="Please select one" id=""
      >
+      <option disabilited value=""></option>
       <option value="all">all</option>
       <option value="movie">movies</option>
       <option value="tv">series</option>
@@ -49,9 +51,15 @@ export default {
    .logo{
      color:white;
    }
-   select{
-     width:100px;
-     margin-right:20px
+   div{
+    span{
+      color:white;
+      margin-right:20px
+    }
+     select{
+       width:100px;
+       margin-right:20px
+     }
    }
  }
 </style>

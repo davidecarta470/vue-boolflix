@@ -20,9 +20,18 @@
                 <span v-if="serie.original_language === 'en'"><img  src="../assets/img/it.png"></span> 
                 <span v-else-if="serie.original_language ==='it'"><img  src="../assets/img/en.png"></span> 
                 <span v-else>{{serie.original_language}}</span> 
+                <div class="vote">
+                      Voto :
+                      <span v-if="Math.round(serie.vote_average/2)">
+                        <i
+                        v-for="(star,index) in Math.round(serie.vote_average/2)" :key="index" 
+                        class="fas fa-star"
+                        ></i>
+                      </span>
+                      <span v-else>{{Math.round(serie.vote_average/2)}}</span>  
+                   
+                </div>
               </div>
-              <div class="vote">{{Math.round(serie.vote_average/2)}}</div>
-              
             </div>
           </div>
         </div>

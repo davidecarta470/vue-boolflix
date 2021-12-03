@@ -22,7 +22,17 @@
                       <span v-else-if="film.original_language === 'en'"> <img  src="../assets/img/en.png"></span>      
                       <span v-else>{{film.original_language}}</span> 
                     </div>
-                    <div class="vote">Voto : {{Math.round(film.vote_average/2)}}</div>
+                    <div class="vote">
+                      Voto :
+                     
+                      <span v-if="Math.round(film.vote_average/2)">
+                        <i
+                        v-for="(star,index) in Math.round(film.vote_average/2)" :key="index" 
+                        class="fas fa-star"
+                        ></i>
+                      </span>
+                      <span v-else>{{Math.round(film.vote_average/2)}}</span>  
+                    </div>
                 </div>
               </div>
             </div>
@@ -54,7 +64,7 @@ export default {
 
 <style lang="scss" scoped>
 
-
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
 @import '../assets/style/vars.scss';
 @import '../assets/style/mixin.scss';
 .container{
