@@ -30,6 +30,10 @@
                         v-for="(star,index) in Math.round(film.vote_average/2)" :key="index" 
                         class="fas fa-star"
                         ></i>
+                        <i
+                        v-for="(star,index) in 5-Math.round(film.vote_average/2)" :key="index" 
+                        class="far fa-star"
+                        ></i>
                       </span>
                       <span v-else>{{Math.round(film.vote_average/2)}}</span>  
                     </div>
